@@ -1,0 +1,47 @@
+### Krok 1: Dodanie nowej reklamacji
+POST http://localhost:8080/api/v1/complaints
+Content-Type: application/json
+X-Forwarded-For: 8.8.8.8
+
+{
+  "productId": "ABC123",
+  "content": "Ten produkt jest uszkodzony.",
+  "reporter": "jan.kowalski@example.com"
+}
+
+### Krok 2: Pobranie wszystkich reklamacji
+GET http://localhost:8080/api/v1/complaints
+
+### Krok 3: Ponowne zgłoszenie tej samej reklamacji (zwiększy counter)
+POST http://localhost:8080/api/v1/complaints
+Content-Type: application/json
+X-Forwarded-For: 8.8.8.8
+
+{
+  "productId": "ABC123",
+  "content": "Dalej nie działa",
+  "reporter": "jan.kowalski@example.com"
+}
+
+### Krok 4: Pobranie wszystkich reklamacji
+GET http://localhost:8080/api/v1/complaints
+
+### Krok 5: Edycja treści reklamacji (np. ID = 1)
+PUT http://localhost:8080/api/v1/complaints/1
+Content-Type: text/plain
+
+Nowa treść reklamacji
+
+### Krok 6: Pobranie wszystkich reklamacji
+GET http://localhost:8080/api/v1/complaints
+
+
+###  Krok 7: Przykład nieprawidłowej walidacji (brak reporter)
+POST http://localhost:8080/api/v1/complaints
+Content-Type: application/json
+X-Forwarded-For: 1.1.1.1
+
+{
+  "productId": "XYZ999",
+  "content": "Brakuje maila"
+}
